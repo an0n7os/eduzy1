@@ -14,7 +14,16 @@ const nav = [
 ] as const;
 
 export function Logo() {
-  return <span className="font-display text-2xl font-black tracking-tight text-primary">EDUZY</span>;
+  return (
+    <span className="flex flex-col select-none group cursor-pointer">
+      <span className="font-display text-xl sm:text-[22px] font-black tracking-[0.04em] leading-none text-[#FF5500] group-hover:brightness-110 transition-all drop-shadow-[0_0_16px_rgba(255,85,0,0.3)]">
+        EDUZY
+      </span>
+      <span className="text-[9px] sm:text-[9.5px] font-bold tracking-[0.32em] text-white/70 uppercase leading-none mt-1 group-hover:text-white transition-colors">
+        ACADEMY
+      </span>
+    </span>
+  );
 }
 
 export function SiteHeader() {
@@ -22,40 +31,111 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 30 });
+
   useEffect(() => {
-    const f = () => setScrolled(window.scrollY > 30);
+    const f = () => setScrolled(window.scrollY > 20);
     f();
     window.addEventListener("scroll", f);
     return () => window.removeEventListener("scroll", f);
   }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
-      <motion.div style={{ scaleX }} className="fixed inset-x-0 top-0 h-[2px] origin-left bg-primary" />
+    <header className="fixed inset-x-0 top-0 z-50 transition-all duration-300">
+      {/* Top Gradient Scroll Progress Bar */}
+      <motion.div
+        style={{ scaleX }}
+        className="fixed inset-x-0 top-0 h-[2.5px] origin-left bg-gradient-to-r from-primary via-accent to-primary shadow-glow z-50"
+      />
+
+      {/* Full-Width Luxury Frosted Glass Header */}
       <div
-        className={`mx-auto flex max-w-7xl items-center justify-between rounded-full px-6 py-3 transition-all duration-500 ${
-          scrolled ? "border border-border bg-background/70 backdrop-blur-xl" : "border border-transparent"
+        className={`w-full transition-all duration-500 border-b ${
+          scrolled
+            ? "border-white/[0.08] bg-background/85 shadow-[0_16px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl py-3.5"
+            : "border-white/[0.05] bg-background/50 backdrop-blur-xl py-4 sm:py-5"
         }`}
       >
-        <Link to="/"><Logo /></Link>
-        <nav className="hidden items-center gap-6 lg:flex">
-          {nav.map((n) => (
-            <Link key={n.to} to={n.to} className="text-sm text-muted-foreground transition-colors hover:text-foreground" activeProps={{ className: "text-foreground" }} activeOptions={{ exact: true }}>
-              {n.label}
+        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-12">
+          {/* Logo */}
+          <Link to="/" className="outline-none flex items-center">
+            <Logo />
+          </Link>
+
+          {/* Desktop Nav Items */}
+          <nav className="hidden items-center gap-8 lg:flex">
+            {nav.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                className="group relative py-1 text-sm font-medium tracking-wide text-white/70 transition-all duration-200 hover:text-white"
+                activeProps={{
+                  className: "!text-white !font-bold",
+                }}
+                activeOptions={{ exact: true }}
+              >
+                {n.label}
+                <span className="absolute -bottom-1 left-0 h-[2px] w-0 bg-gradient-to-r from-primary to-[#FFA63D] transition-all duration-300 group-hover:w-full group-[.!text-white]:w-full" />
+              </Link>
+            ))}
+          </nav>
+
+          {/* Action Area: Phone & Enroll Button */}
+          <div className="hidden lg:flex items-center gap-5">
+            <a
+              href={`tel:${contact.phone.replace(/\s/g, "")}`}
+              className="text-xs font-semibold tracking-wider text-white/60 hover:text-primary transition-colors hidden xl:inline-block"
+            >
+              {contact.phone}
+            </a>
+            <Link
+              to="/contact"
+              className="relative overflow-hidden rounded-full bg-gradient-to-r from-primary via-[#FFA63D] to-primary bg-[length:200%_auto] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:scale-105 hover:shadow-primary/45 active:scale-95 inline-flex items-center gap-2"
+            >
+              <span className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/35 to-transparent skew-x-12 animate-[shimmer_3s_infinite] pointer-events-none" />
+              <span>Enroll Now</span>
+              <span className="grid h-4 w-4 place-items-center rounded-full bg-white/25 text-[10px]">→</span>
             </Link>
-          ))}
-        </nav>
-        <Link to="/contact" className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-105 lg:inline-block">
-          Enroll Now
-        </Link>
-        <button aria-label="Menu" onClick={() => setOpen(!open)} className="flex flex-col gap-1.5 lg:hidden">
-          <span className="h-0.5 w-6 bg-foreground" /><span className="h-0.5 w-6 bg-foreground" />
-        </button>
+          </div>
+
+          {/* Mobile Hamburger Toggle */}
+          <button
+            aria-label="Toggle Navigation Menu"
+            onClick={() => setOpen(!open)}
+            className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 p-1 lg:hidden text-foreground hover:bg-white/10 transition-colors"
+          >
+            <span className="flex flex-col gap-1.5">
+              <span className={`h-0.5 w-5 bg-foreground transition-transform ${open ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`h-0.5 w-5 bg-foreground transition-opacity ${open ? "opacity-0" : ""}`} />
+              <span className={`h-0.5 w-5 bg-foreground transition-transform ${open ? "-rotate-45 -translate-y-2" : ""}`} />
+            </span>
+          </button>
+        </div>
       </div>
+
+      {/* Mobile Drawer */}
       {open && (
-        <div className="mx-auto mt-2 max-w-7xl rounded-3xl border border-border bg-background/95 p-6 backdrop-blur-xl lg:hidden">
-          {nav.map((n) => (
-            <Link key={n.to} to={n.to} onClick={() => setOpen(false)} className="block py-3 font-display text-2xl">{n.label}</Link>
-          ))}
+        <div className="border-b border-white/10 bg-background/95 px-6 py-6 backdrop-blur-2xl lg:hidden">
+          <div className="mx-auto max-w-7xl space-y-4">
+            {nav.map((n) => (
+              <Link
+                key={n.to}
+                to={n.to}
+                onClick={() => setOpen(false)}
+                className="block py-2 font-display text-xl font-medium text-white/80 hover:text-primary transition-colors"
+              >
+                {n.label}
+              </Link>
+            ))}
+            <div className="pt-4 border-t border-white/10">
+              <Link
+                to="/contact"
+                onClick={() => setOpen(false)}
+                className="block w-full text-center rounded-full bg-primary py-3 text-xs font-bold uppercase tracking-wider text-primary-foreground shadow-lg shadow-primary/20"
+              >
+                Enroll Now →
+              </Link>
+            </div>
+          </div>
         </div>
       )}
     </header>

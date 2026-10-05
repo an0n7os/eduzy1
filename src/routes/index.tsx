@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useInView, animate, AnimatePresence } from "motion/react";
+import { motion, useInView, animate, AnimatePresence } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import hero from "@/assets/hero.jpg";
-import { courses } from "@/lib/site";
+import mentorLuxury from "@/assets/mentor_luxury.jpg";
+import { courses, contact } from "@/lib/site";
 import { Reveal, SplitWords } from "@/components/Reveal";
 import { features, partners, faqs, stats, testimonials, blogPosts } from "@/lib/content";
 import { FaqList } from "./faq";
@@ -31,96 +31,209 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
   return <span ref={ref}>{v}{suffix}</span>;
 }
 
-function RotatingWord() {
-  const words = ["Accounting", "Logistics", "Designing", "Aviation", "Marketing", "Business"];
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setI((x) => (x + 1) % words.length), 2200);
-    return () => clearInterval(t);
-  }, []);
-  return (
-    <span className="relative block h-[1.25em] w-full overflow-hidden text-[min(1em,10vw)]">
-      <AnimatePresence initial={false}>
-        <motion.span
-          key={i}
-          initial={{ y: "100%", opacity: 0 }}
-          animate={{ y: "0%", opacity: 1 }}
-          exit={{ y: "-100%", opacity: 0 }}
-          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-          style={{ backfaceVisibility: "hidden", transform: "translateZ(0)" }}
-          className="absolute inset-x-0 top-0 block whitespace-nowrap bg-linear-to-r from-primary to-accent bg-clip-text pb-[0.1em] text-transparent will-change-transform"
-        >
-          {words[i]}
-        </motion.span>
-      </AnimatePresence>
-    </span>
-  );
-}
-
 function Hero() {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const scale = useTransform(scrollYProgress, [0, 1], [1.05, 1.3]);
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   return (
-    <section ref={ref} className="relative h-[100svh] min-h-[760px] overflow-hidden">
-      <motion.img src={hero} alt="Eduzy students in class" width={1600} height={1008} style={{ scale }} className="absolute inset-0 h-full w-full object-cover opacity-40" />
-      <div className="absolute inset-0 bg-gradient-to-b from-background/50 via-background/30 to-background" />
-      <div className="bg-glow absolute inset-0 opacity-60" />
-      <motion.div aria-hidden animate={{ rotate: 360 }} transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-        className="pointer-events-none absolute -right-40 top-20 h-[520px] w-[520px] rounded-full border border-primary/20" />
-      <motion.div aria-hidden animate={{ rotate: -360 }} transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-        className="pointer-events-none absolute -right-20 top-40 h-[360px] w-[360px] rounded-full border border-dashed border-primary/30" />
+    <section className="relative min-h-[92svh] bg-background text-foreground pt-28 sm:pt-36 pb-12 overflow-hidden flex flex-col justify-center">
+      {/* Background Cinematic Lighting & Floating Light Orbs */}
+      <div className="bg-glow absolute inset-0 opacity-70 pointer-events-none" />
+      <motion.div
+        aria-hidden
+        animate={{ x: [0, 25, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -right-40 -top-24 h-[650px] w-[650px] rounded-full bg-primary/15 blur-[140px]"
+      />
+      <motion.div
+        aria-hidden
+        animate={{ x: [0, -20, 0], y: [0, 25, 0], scale: [1, 1.06, 1] }}
+        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+        className="pointer-events-none absolute -left-40 top-1/4 h-[550px] w-[550px] rounded-full bg-accent/10 blur-[130px]"
+      />
 
-      <motion.div style={{ y, opacity }} className="relative mx-auto flex h-full max-w-7xl flex-col justify-end px-6 pb-16 md:px-12">
-        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
-          className="mb-8 inline-flex w-fit items-center gap-3 rounded-full border border-border bg-card/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] backdrop-blur">
-          <span className="relative flex h-2 w-2"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" /><span className="relative inline-flex h-2 w-2 rounded-full bg-primary" /></span>
-          Admissions open 2026
-        </motion.div>
-        <h1 className="text-[11vw] font-black leading-[1] sm:text-[9vw] md:text-[7.5vw]">
-          <SplitWords text="Build a career in" />
-          <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="block"><RotatingWord /></motion.span>
-        </h1>
-        <div className="mt-10 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.7, duration: 0.8 }}>
-            <p className="max-w-md text-lg text-muted-foreground">
-              Learn today. Lead tomorrow. Build your career with industry-focused education, practical training, expert guidance and placement support.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/courses" className="shadow-glow group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-semibold text-primary-foreground transition-transform hover:scale-105">
-                Explore courses <span className="transition-transform group-hover:translate-x-1">→</span>
+      {/* Orbit Rings with Continuous Ambient Rotation */}
+      <motion.div
+        aria-hidden
+        animate={{ rotate: 360 }}
+        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute -right-32 top-16 h-[500px] w-[500px] rounded-full border border-primary/20"
+      />
+      <motion.div
+        aria-hidden
+        animate={{ rotate: -360 }}
+        transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute -right-16 top-32 h-[380px] w-[380px] rounded-full border border-dashed border-primary/25"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12 my-auto">
+        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-12 lg:gap-8 items-center">
+          {/* Left Column: Headline, Interactive Animated Course Pills, CTA, Brand Statement */}
+          <div className="flex flex-col items-start z-10">
+            {/* Clear, High-Impact Ultra-Premium Headline with Animated Gradient Shimmer */}
+            <motion.h1
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.08] text-foreground"
+            >
+              Build A Career That
+              <motion.span
+                animate={{
+                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                style={{
+                  backgroundSize: "200% auto",
+                }}
+                className="block mt-2 bg-gradient-to-r from-primary via-[#FFB356] via-accent to-primary bg-clip-text text-transparent drop-shadow-sm"
+              >
+                Leads The World.
+              </motion.span>
+            </motion.h1>
+
+            {/* Premium Brand Statement */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25, duration: 0.7 }}
+              className="mt-8 max-w-xl text-base sm:text-lg text-muted-foreground leading-relaxed"
+            >
+              Kerala's benchmark institution for career-defining higher education. Internationally accredited diplomas, hands-on corporate software labs, and <span className="text-foreground font-semibold">100% placement assurance</span> across India & UAE.
+            </motion.p>
+
+            {/* CTA Buttons with Sweep Shimmer Light Effect */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.7 }}
+              className="mt-8 flex flex-wrap gap-4 items-center"
+            >
+              <Link
+                to="/courses"
+                className="relative overflow-hidden shadow-glow group inline-flex items-center gap-3 rounded-full bg-primary px-8 py-4 font-bold text-primary-foreground transition-all hover:scale-105 active:scale-95 text-base"
+              >
+                {/* Subtle Luxury Sheen Sweep Effect */}
+                <motion.div
+                  aria-hidden
+                  animate={{ x: ["-100%", "200%"] }}
+                  transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", repeatDelay: 2 }}
+                  className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12 pointer-events-none"
+                />
+                <span>Explore All Courses</span>
+                <span className="transition-transform group-hover:translate-x-1">→</span>
               </Link>
-              <Link to="/contact" className="inline-flex items-center rounded-full border border-border bg-card/40 px-8 py-4 font-semibold backdrop-blur transition-colors hover:border-primary">
-                Free counselling
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-card/70 px-7 py-4 font-semibold text-foreground backdrop-blur-md transition-all hover:border-primary/60 hover:bg-card active:scale-95 text-base shadow-sm"
+              >
+                Free Career Counselling
               </Link>
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1, duration: 0.8 }}
-            className="grid grid-cols-3 gap-px overflow-hidden rounded-2xl border border-border bg-border">
-            {[["14+", "Years"], ["20K+", "Students"], ["97+", "Partners"]].map(([n, l]) => (
-              <div key={l} className="bg-card/70 px-6 py-5 backdrop-blur">
-                <p className="font-display text-2xl font-bold text-primary md:text-3xl">{n}</p>
-                <p className="mt-1 text-xs text-muted-foreground">{l}</p>
+            </motion.div>
+
+            {/* Trust Social Proof Strip */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.55, duration: 0.7 }}
+              className="mt-10 flex flex-wrap items-center gap-6 pt-6 border-t border-border/60"
+            >
+              <div className="flex items-center gap-2">
+                <span className="text-amber-400 text-sm">★★★★★</span>
+                <span className="text-xs font-bold text-foreground">4.9/5 Rating</span>
+                <span className="text-xs text-muted-foreground">(2,000+ Alumni)</span>
               </div>
-            ))}
+              <span className="hidden sm:inline-block h-4 w-px bg-border" />
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                <span className="text-foreground font-semibold">100% Placement Support</span>
+              </div>
+              <span className="hidden md:inline-block h-4 w-px bg-border" />
+              <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
+                <span className="text-foreground font-semibold">14+ Years</span> Excellence
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Column: Ultra-Luxurious Mentor Portrait with Breathing Floating Animation */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.25, duration: 0.8 }}
+            className="relative flex items-center justify-center lg:justify-end mt-10 lg:mt-0"
+          >
+            <motion.div
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              className="relative w-full max-w-[420px] lg:max-w-[460px] aspect-[3/3.8] flex items-center justify-center"
+            >
+              {/* Ambient Pulsing Glowing Aura */}
+              <motion.div
+                aria-hidden
+                animate={{ opacity: [0.6, 0.85, 0.6], scale: [0.98, 1.03, 0.98] }}
+                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-4 rounded-[2.5rem] bg-gradient-to-t from-primary/35 via-primary/10 to-transparent blur-2xl"
+              />
+
+              {/* Decorative Subtle Outer Border */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] border border-primary/25 opacity-60"
+              />
+
+              {/* Luxury Framed Studio Portrait */}
+              <div className="relative z-10 w-full h-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-card/90 to-background shadow-2xl">
+                <img
+                  src={mentorLuxury}
+                  alt="Eduzy Career Mentor & Brand Ambassador"
+                  className="w-full h-full object-cover object-top transition-transform duration-700 hover:scale-105"
+                />
+
+                {/* Smooth Dark Gradient Fade at Bottom */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-transparent to-transparent pointer-events-none" />
+
+                {/* Refined Floating Micro-Badge */}
+                <div className="absolute bottom-5 inset-x-5 z-20 rounded-2xl border border-white/10 bg-card/85 p-3.5 shadow-2xl backdrop-blur-xl flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/20 text-primary font-bold text-sm">
+                      ✦
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-foreground">Meet Your Mentors</p>
+                      <p className="text-[10px] text-muted-foreground">Certified Industry Practitioners</p>
+                    </div>
+                  </div>
+                  <Link to="/contact" className="text-xs font-bold text-primary hover:underline">
+                    Guidance →
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         </div>
-        <motion.div animate={{ y: [0, 8, 0] }} transition={{ duration: 2, repeat: Infinity }} className="mt-10 hidden text-xs uppercase tracking-[0.3em] text-muted-foreground md:block">Scroll ↓</motion.div>
-      </motion.div>
+      </div>
     </section>
   );
 }
 
 function Marquee() {
-  const items = ["Accounting", "Logistics", "Designing", "Aviation", "Digital Marketing", "Entrepreneurship", "Placement Support"];
+  const items = [
+    "International Accounting",
+    "Logistics & Global SCM",
+    "Aviation & Airport Operations",
+    "UI/UX & Digital Design",
+    "Strategic Digital Marketing",
+    "Executive Grooming",
+    "100% Placement Pathway",
+  ];
   return (
-    <div className="overflow-hidden border-y border-border py-6">
+    <div className="overflow-hidden border-y border-border py-5 bg-card/40">
       <div className="animate-marquee flex w-max gap-12 whitespace-nowrap">
         {[...items, ...items, ...items, ...items].map((t, i) => (
-          <span key={i} className="flex items-center gap-12 font-display text-3xl font-bold md:text-5xl">
-            <span className={i % 2 ? "text-outline" : ""}>{t}</span><span className="text-primary">✦</span>
+          <span key={i} className="flex items-center gap-12 font-display text-2xl font-bold md:text-4xl">
+            <span className={i % 2 ? "text-outline" : "text-foreground"}>{t}</span>
+            <span className="text-primary text-xl">✦</span>
           </span>
         ))}
       </div>
@@ -130,22 +243,134 @@ function Marquee() {
 
 function Intro() {
   return (
-    <section className="mx-auto max-w-7xl px-6 py-32 md:px-12">
-      <div className="grid gap-16 md:grid-cols-[1fr_1.4fr]">
-        <Reveal><p className="text-xs font-semibold uppercase tracking-[0.3em] text-primary">Why Eduzy</p></Reveal>
-        <div>
-          <h2 className="text-3xl font-semibold leading-tight md:text-5xl">
-            <SplitWords text="Career-oriented programs that build the knowledge, practical skills and confidence to succeed." />
-          </h2>
-          <div className="mt-16 grid grid-cols-2 gap-10 md:grid-cols-4">
-            {stats.map(([n, s, l], i) => (
-              <Reveal key={l as string} delay={i * 0.1}>
-                <p className="font-display text-4xl font-bold text-primary md:text-5xl"><Counter to={n as number} suffix={s as string} /></p>
-                <p className="mt-2 text-sm text-muted-foreground">{l}</p>
-              </Reveal>
-            ))}
-          </div>
+    <section className="relative mx-auto max-w-7xl px-6 py-28 md:px-12 overflow-hidden">
+      {/* Subtle Background Radial Glow */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[550px] w-[900px] bg-primary/10 blur-[150px] rounded-full" />
+
+      {/* Header with High-Impact Ultra-Premium Typography */}
+      <div className="relative z-10 max-w-3xl mb-16 sm:mb-20">
+        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-[0.25em] text-primary backdrop-blur-md mb-6">
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
+          The Eduzy Prestige
         </div>
+        <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-foreground">
+          Where ambition meets{" "}
+          <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+            global excellence.
+          </span>
+        </h2>
+        <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl">
+          We combine internationally accredited diplomas, industry-grade practical labs, and executive career mentorship to ensure you launch directly into the top tier of your chosen industry.
+        </p>
+      </div>
+
+      {/* Ultra-Premium Clean 4-Card Bento Grid */}
+      <div className="relative z-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          {
+            icon: "🏛️",
+            badge: "Est. 2012",
+            number: 14,
+            suffix: "+",
+            title: "Years of Educational Legacy",
+            description: "Pioneering career-focused professional training in South India with a consistent track record of academic excellence.",
+            action: "Historical Track Record",
+            featured: false,
+          },
+          {
+            icon: "🌐",
+            badge: "Global Reach",
+            number: 20,
+            suffix: "K+",
+            title: "Global Alumni Network",
+            description: "Our graduates thrive across UAE, Qatar, Oman, India, and the UK in high-growth multinational careers.",
+            action: "Explore Global Footprint",
+            featured: false,
+          },
+          {
+            icon: "💼",
+            badge: "Verified Pathway",
+            number: 100,
+            suffix: "%",
+            title: "Placement Assistance",
+            description: "Dedicated corporate placement cell conducting exclusive campus drives, mock interviews, and executive grooming.",
+            action: "Placement Assurance",
+            featured: true,
+          },
+          {
+            icon: "🤝",
+            badge: "Industry Leaders",
+            number: 97,
+            suffix: "+",
+            title: "Tier-1 Corporate Partners",
+            description: "Official campus recruitment tie-ups with leading airlines, logistics giants, audit firms, and top design studios.",
+            action: "Corporate Network",
+            featured: false,
+          },
+        ].map((item, idx) => (
+          <motion.div
+            key={item.title}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: idx * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className={`group relative overflow-hidden rounded-3xl p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between ${
+              item.featured
+                ? "border-2 border-primary/50 bg-gradient-to-b from-primary/10 via-card/85 to-card shadow-[0_20px_50px_rgba(255,85,0,0.15)] hover:border-primary hover:shadow-[0_20px_50px_rgba(255,85,0,0.25)]"
+                : "border border-white/10 bg-card/75 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
+            }`}
+          >
+            {/* Ambient Card Glow */}
+            <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/15 blur-2xl transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
+
+            <div>
+              {/* Top Row: Icon & Badge */}
+              <div className="flex items-center justify-between gap-3 mb-6">
+                <span className={`grid h-12 w-12 place-items-center rounded-2xl border text-xl shadow-inner transition-transform group-hover:scale-110 ${
+                  item.featured
+                    ? "bg-primary/20 border-primary/40 text-primary"
+                    : "bg-white/5 border-white/10"
+                }`}>
+                  {item.icon}
+                </span>
+                <span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${
+                  item.featured
+                    ? "border border-primary/60 bg-primary/20 text-primary"
+                    : "border border-primary/30 bg-primary/10 text-primary"
+                }`}>
+                  {item.badge}
+                </span>
+              </div>
+
+              {/* Number */}
+              <div className="flex items-baseline gap-1">
+                <span className={`font-display text-4xl sm:text-5xl font-black tracking-tight ${
+                  item.featured
+                    ? "text-primary drop-shadow-[0_0_15px_rgba(255,85,0,0.35)]"
+                    : "text-foreground group-hover:text-primary transition-colors"
+                }`}>
+                  <Counter to={item.number} suffix={item.suffix} />
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="mt-3 text-lg font-bold text-foreground leading-snug">
+                {item.title}
+              </h3>
+
+              {/* Clean Description */}
+              <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+
+            {/* Bottom Link */}
+            <div className="mt-8 pt-4 border-t border-border/60 flex items-center justify-between text-xs font-semibold text-primary group-hover:text-[#FFA63D] transition-colors">
+              <span>{item.action}</span>
+              <span className="transition-transform group-hover:translate-x-1">→</span>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </section>
   );
