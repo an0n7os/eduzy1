@@ -34,19 +34,19 @@ function Counter({ to, suffix = "" }: { to: number; suffix?: string }) {
 function Hero() {
   return (
     <section className="relative min-h-[92svh] bg-background text-foreground pt-28 sm:pt-36 pb-12 overflow-hidden flex flex-col justify-center">
-      {/* Background Cinematic Lighting & Floating Light Orbs */}
-      <div className="bg-glow absolute inset-0 opacity-70 pointer-events-none" />
+      {/* Background Cinematic Lighting & Floating Light Orbs — dark mode only */}
+      <div className="bg-glow absolute inset-0 opacity-0 dark:opacity-70 pointer-events-none transition-opacity duration-500" />
       <motion.div
         aria-hidden
         animate={{ x: [0, 25, 0], y: [0, -20, 0], scale: [1, 1.08, 1] }}
         transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -right-40 -top-24 h-[650px] w-[650px] rounded-full bg-primary/15 blur-[140px]"
+        className="pointer-events-none absolute -right-40 -top-24 h-[650px] w-[650px] rounded-full bg-transparent dark:bg-primary/15 blur-[140px] transition-all duration-500"
       />
       <motion.div
         aria-hidden
         animate={{ x: [0, -20, 0], y: [0, 25, 0], scale: [1, 1.06, 1] }}
         transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        className="pointer-events-none absolute -left-40 top-1/4 h-[550px] w-[550px] rounded-full bg-accent/10 blur-[130px]"
+        className="pointer-events-none absolute -left-40 top-1/4 h-[550px] w-[550px] rounded-full bg-transparent dark:bg-accent/10 blur-[130px] transition-all duration-500"
       />
 
       {/* Orbit Rings with Continuous Ambient Rotation */}
@@ -54,13 +54,13 @@ function Hero() {
         aria-hidden
         animate={{ rotate: 360 }}
         transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
-        className="pointer-events-none absolute -right-32 top-16 h-[500px] w-[500px] rounded-full border border-primary/20"
+        className="pointer-events-none absolute -right-32 top-16 h-[500px] w-[500px] rounded-full border border-transparent dark:border-primary/20"
       />
       <motion.div
         aria-hidden
         animate={{ rotate: -360 }}
         transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
-        className="pointer-events-none absolute -right-16 top-32 h-[380px] w-[380px] rounded-full border border-dashed border-primary/25"
+        className="pointer-events-none absolute -right-16 top-32 h-[380px] w-[380px] rounded-full border border-dashed border-transparent dark:border-primary/25"
       />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-12 my-auto">
@@ -126,7 +126,7 @@ function Hero() {
               </Link>
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-card/70 px-7 py-4 font-semibold text-foreground backdrop-blur-md transition-all hover:border-primary/60 hover:bg-card active:scale-95 text-base shadow-sm"
+                className="inline-flex items-center gap-2 rounded-full border border-border/80 bg-card/70 px-7 py-4 font-semibold text-foreground backdrop-blur-md transition-all hover:border-primary/60 hover:bg-card active:scale-95 text-base shadow-sm"
               >
                 Free Career Counselling
               </Link>
@@ -168,22 +168,22 @@ function Hero() {
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               className="relative w-full max-w-[420px] lg:max-w-[460px] aspect-[3/3.8] flex items-center justify-center"
             >
-              {/* Ambient Pulsing Glowing Aura */}
+              {/* Ambient Pulsing Glowing Aura — dark mode only */}
               <motion.div
                 aria-hidden
                 animate={{ opacity: [0.6, 0.85, 0.6], scale: [0.98, 1.03, 0.98] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute inset-4 rounded-[2.5rem] bg-gradient-to-t from-primary/35 via-primary/10 to-transparent blur-2xl"
+                className="absolute inset-4 rounded-[2.5rem] bg-gradient-to-t from-transparent via-transparent to-transparent dark:from-primary/35 dark:via-primary/10 dark:to-transparent blur-2xl"
               />
 
-              {/* Decorative Subtle Outer Border */}
+              {/* Decorative Subtle Outer Border — dark mode only */}
               <div
                 aria-hidden
-                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] border border-primary/25 opacity-60"
+                className="pointer-events-none absolute -inset-2 rounded-[2.5rem] border border-transparent dark:border-primary/25 opacity-60"
               />
 
               {/* Luxury Framed Studio Portrait */}
-              <div className="relative z-10 w-full h-full overflow-hidden rounded-[2.5rem] border border-white/10 bg-gradient-to-b from-card/90 to-background shadow-2xl">
+              <div className="relative z-10 w-full h-full overflow-hidden rounded-[2.5rem] border border-border/80 bg-gradient-to-b from-card/90 to-background shadow-2xl">
                 <img
                   src={mentorLuxury}
                   alt="Eduzy Career Mentor & Brand Ambassador"
@@ -194,18 +194,18 @@ function Hero() {
                 <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-transparent to-transparent pointer-events-none" />
 
                 {/* Refined Floating Micro-Badge */}
-                <div className="absolute bottom-5 inset-x-5 z-20 rounded-2xl border border-white/10 bg-card/85 p-3.5 shadow-2xl backdrop-blur-xl flex items-center justify-between">
+                <div className="absolute bottom-5 inset-x-5 z-20 rounded-2xl border border-border/80 bg-card/90 p-3.5 shadow-2xl backdrop-blur-xl flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <div className="grid h-9 w-9 place-items-center rounded-xl bg-primary/20 text-primary font-bold text-sm">
                       ✦
                     </div>
                     <div>
-                      <p className="text-xs font-bold text-foreground">Meet Your Mentors</p>
-                      <p className="text-[10px] text-muted-foreground">Certified Industry Practitioners</p>
+                      <p className="text-xs font-bold text-foreground">Meet Our Founder</p>
+                      <p className="text-[10px] text-muted-foreground">Visionary Behind Eduzy Academy</p>
                     </div>
                   </div>
-                  <Link to="/contact" className="text-xs font-bold text-primary hover:underline">
-                    Guidance →
+                  <Link to="/founder" className="text-xs font-bold text-primary hover:underline">
+                    View Profile →
                   </Link>
                 </div>
               </div>
@@ -244,8 +244,8 @@ function Marquee() {
 function Intro() {
   return (
     <section className="relative mx-auto max-w-7xl px-6 py-28 md:px-12 overflow-hidden">
-      {/* Subtle Background Radial Glow */}
-      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[550px] w-[900px] bg-primary/10 blur-[150px] rounded-full" />
+      {/* Subtle Background Radial Glow — dark mode only */}
+      <div className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[550px] w-[900px] bg-transparent dark:bg-primary/10 blur-[150px] rounded-full" />
 
       {/* Header with High-Impact Ultra-Premium Typography */}
       <div className="relative z-10 max-w-3xl mb-16 sm:mb-20">
@@ -264,114 +264,123 @@ function Intro() {
         </p>
       </div>
 
-      {/* Ultra-Premium Clean 4-Card Bento Grid */}
-      <div className="relative z-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {[
-          {
-            icon: "🏛️",
-            badge: "Est. 2012",
-            number: 14,
-            suffix: "+",
-            title: "Years of Educational Legacy",
-            description: "Pioneering career-focused professional training in South India with a consistent track record of academic excellence.",
-            action: "Historical Track Record",
-            featured: false,
-          },
-          {
-            icon: "🌐",
-            badge: "Global Reach",
-            number: 20,
-            suffix: "K+",
-            title: "Global Alumni Network",
-            description: "Our graduates thrive across UAE, Qatar, Oman, India, and the UK in high-growth multinational careers.",
-            action: "Explore Global Footprint",
-            featured: false,
-          },
-          {
-            icon: "💼",
-            badge: "Verified Pathway",
-            number: 100,
-            suffix: "%",
-            title: "Placement Assistance",
-            description: "Dedicated corporate placement cell conducting exclusive campus drives, mock interviews, and executive grooming.",
-            action: "Placement Assurance",
-            featured: true,
-          },
-          {
-            icon: "🤝",
-            badge: "Industry Leaders",
-            number: 97,
-            suffix: "+",
-            title: "Tier-1 Corporate Partners",
-            description: "Official campus recruitment tie-ups with leading airlines, logistics giants, audit firms, and top design studios.",
-            action: "Corporate Network",
-            featured: false,
-          },
-        ].map((item, idx) => (
-          <motion.div
-            key={item.title}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ delay: idx * 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className={`group relative overflow-hidden rounded-3xl p-7 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between ${
-              item.featured
-                ? "border-2 border-primary/50 bg-gradient-to-b from-primary/10 via-card/85 to-card shadow-[0_20px_50px_rgba(255,85,0,0.15)] hover:border-primary hover:shadow-[0_20px_50px_rgba(255,85,0,0.25)]"
-                : "border border-white/10 bg-card/75 hover:border-primary/50 hover:shadow-2xl hover:shadow-primary/10"
-            }`}
-          >
-            {/* Ambient Card Glow */}
-            <div className="pointer-events-none absolute -right-16 -top-16 h-36 w-36 rounded-full bg-primary/15 blur-2xl transition-opacity duration-500 group-hover:opacity-100 opacity-50" />
+      {/* Minimal Glass Stats Bar / Horizontal Strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-40px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative z-10 overflow-hidden rounded-2xl sm:rounded-3xl border border-border/80 bg-card/75 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.06)] dark:shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
+      >
+        {/* Subtle Top Gradient Sheen */}
+        <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
 
-            <div>
-              {/* Top Row: Icon & Badge */}
-              <div className="flex items-center justify-between gap-3 mb-6">
-                <span className={`grid h-12 w-12 place-items-center rounded-2xl border text-xl shadow-inner transition-transform group-hover:scale-110 ${
-                  item.featured
-                    ? "bg-primary/20 border-primary/40 text-primary"
-                    : "bg-white/5 border-white/10"
-                }`}>
-                  {item.icon}
-                </span>
-                <span className={`rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${
-                  item.featured
-                    ? "border border-primary/60 bg-primary/20 text-primary"
-                    : "border border-primary/30 bg-primary/10 text-primary"
-                }`}>
-                  {item.badge}
-                </span>
+        {/* 4-Item Horizontal Divider Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              icon: "🏛️",
+              badge: "Est. 2012",
+              number: 14,
+              suffix: "+",
+              title: "Years of Legacy",
+              subtitle: "South India's Pioneer",
+              action: "Track Record",
+            },
+            {
+              icon: "🌐",
+              badge: "Global Reach",
+              number: 20,
+              suffix: "K+",
+              title: "Global Alumni",
+              subtitle: "UAE, Qatar, Oman & UK",
+              action: "Global Footprint",
+            },
+            {
+              icon: "💼",
+              badge: "Verified Pathway",
+              number: 100,
+              suffix: "%",
+              title: "Placement Support",
+              subtitle: "Dedicated Career Cell",
+              action: "Career Assurance",
+              featured: true,
+            },
+            {
+              icon: "🤝",
+              badge: "Industry Leaders",
+              number: 97,
+              suffix: "+",
+              title: "Corporate Partners",
+              subtitle: "Airlines, Logistics & MNCs",
+              action: "Partner Network",
+            },
+          ].map((item, idx) => (
+            <div
+              key={item.title}
+              className={`group relative p-5 sm:p-7 lg:p-8 transition-all duration-300 hover:bg-muted/30 flex flex-col justify-between border-border/70 ${
+                idx % 2 === 0 ? "border-r" : ""
+              } ${
+                idx < 2 ? "border-b lg:border-b-0" : ""
+              } ${
+                idx === 1 ? "lg:border-r" : ""
+              } ${
+                idx === 2 ? "lg:border-r" : ""
+              }`}
+            >
+              {/* Spotlight Hover Glow */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+              <div className="relative z-10">
+                {/* Top Row: Mini Icon & Badge */}
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <span className="grid h-8 w-8 place-items-center rounded-xl bg-muted/60 border border-border/80 text-sm shadow-inner group-hover:border-primary/40 transition-colors">
+                    {item.icon}
+                  </span>
+                  <span
+                    className={`rounded-full px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider ${
+                      item.featured
+                        ? "border border-primary/60 bg-primary/20 text-primary"
+                        : "border border-border/80 bg-muted/50 text-muted-foreground group-hover:text-primary group-hover:border-primary/30 transition-colors"
+                    }`}
+                  >
+                    {item.badge}
+                  </span>
+                </div>
+
+                {/* Animated Stat Number */}
+                <div className="flex items-baseline gap-1">
+                  <span
+                    className={`font-display text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight ${
+                      item.featured
+                        ? "text-primary drop-shadow-[0_0_15px_rgba(255,85,0,0.35)]"
+                        : "text-foreground group-hover:text-primary transition-colors"
+                    }`}
+                  >
+                    <Counter to={item.number} suffix={item.suffix} />
+                  </span>
+                </div>
+
+                {/* Title */}
+                <div className="mt-2 text-sm sm:text-base font-bold text-foreground leading-snug">
+                  {item.title}
+                </div>
+
+                {/* Compact Subtitle */}
+                <p className="mt-1 text-xs text-muted-foreground leading-normal">
+                  {item.subtitle}
+                </p>
               </div>
 
-              {/* Number */}
-              <div className="flex items-baseline gap-1">
-                <span className={`font-display text-4xl sm:text-5xl font-black tracking-tight ${
-                  item.featured
-                    ? "text-primary drop-shadow-[0_0_15px_rgba(255,85,0,0.35)]"
-                    : "text-foreground group-hover:text-primary transition-colors"
-                }`}>
-                  <Counter to={item.number} suffix={item.suffix} />
-                </span>
+              {/* Bottom Micro Indicator */}
+              <div className="relative z-10 mt-5 pt-3 border-t border-border/50 flex items-center justify-between text-[11px] font-semibold text-muted-foreground group-hover:text-primary transition-colors">
+                <span>{item.action}</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
               </div>
-
-              {/* Title */}
-              <h3 className="mt-3 text-lg font-bold text-foreground leading-snug">
-                {item.title}
-              </h3>
-
-              {/* Clean Description */}
-              <p className="mt-3 text-xs sm:text-sm text-muted-foreground leading-relaxed">
-                {item.description}
-              </p>
             </div>
-
-            {/* Bottom Link */}
-            <div className="mt-8 pt-4 border-t border-border/60 flex items-center justify-between text-xs font-semibold text-primary group-hover:text-[#FFA63D] transition-colors">
-              <span>{item.action}</span>
-              <span className="transition-transform group-hover:translate-x-1">→</span>
-            </div>
-          </motion.div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
@@ -392,10 +401,10 @@ function CourseStack() {
                   <img src={c.image} alt={c.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" />
                   <span className="absolute left-4 top-4 rounded-full bg-background/80 px-3 py-1 font-display text-xs text-primary backdrop-blur md:hidden">{c.no}</span>
                 </div>
-                <div className="flex flex-col justify-between p-6 sm:p-8 md:p-14">
-                  <div>
+                <div className="flex min-w-0 flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-14">
+                  <div className="min-w-0">
                     <p className="hidden font-display text-sm text-primary md:block">{c.no} / {String(courses.length).padStart(2, "0")}</p>
-                    <h3 className="text-2xl font-bold leading-tight sm:text-3xl md:mt-6 md:text-6xl">{c.title}</h3>
+                    <h3 className="text-2xl font-bold leading-tight break-words tracking-tight sm:text-3xl md:mt-6 md:text-4xl lg:text-5xl">{c.title}</h3>
                     <p className="mt-2 text-base text-accent md:mt-3 md:text-xl">{c.tagline}</p>
                     <p className="mt-4 line-clamp-3 text-sm leading-relaxed text-muted-foreground md:mt-6 md:line-clamp-none md:max-w-md md:text-base">{c.desc}</p>
                   </div>

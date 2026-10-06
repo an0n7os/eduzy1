@@ -30,7 +30,7 @@ function Courses() {
             </Reveal>
             <Reveal delay={0.15}>
               <p className="font-display text-sm text-primary">{c.no} — {c.duration}</p>
-              <h2 className="mt-4 text-5xl font-bold md:text-6xl">{c.title}</h2>
+              <h2 className="mt-4 text-3xl font-bold leading-tight break-words tracking-tight md:text-4xl lg:text-5xl">{c.title}</h2>
               <p className="mt-3 text-xl text-accent">{c.tagline}</p>
               <p className="mt-6 text-muted-foreground">{c.desc}</p>
               <ul className="mt-8 divide-y divide-border border-y border-border">

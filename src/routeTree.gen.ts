@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FaqRouteImport } from './routes/faq'
+import { Route as FounderRouteImport } from './routes/founder'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as PlacementsRouteImport } from './routes/placements'
 import { Route as CoursesIndexRouteImport } from './routes/courses.index'
@@ -36,6 +37,11 @@ const ContactRoute = ContactRouteImport.update({
 const FaqRoute = FaqRouteImport.update({
   id: '/faq',
   path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FounderRoute = FounderRouteImport.update({
+  id: '/founder',
+  path: '/founder',
   getParentRoute: () => rootRouteImport,
 } as any)
 const GalleryRoute = GalleryRouteImport.update({
@@ -64,6 +70,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/founder': typeof FounderRoute
   '/gallery': typeof GalleryRoute
   '/placements': typeof PlacementsRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -74,6 +81,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/founder': typeof FounderRoute
   '/gallery': typeof GalleryRoute
   '/placements': typeof PlacementsRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -85,6 +93,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/faq': typeof FaqRoute
+  '/founder': typeof FounderRoute
   '/gallery': typeof GalleryRoute
   '/placements': typeof PlacementsRoute
   '/courses/$slug': typeof CoursesSlugRoute
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/founder'
     | '/gallery'
     | '/placements'
     | '/courses/$slug'
@@ -107,6 +117,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/founder'
     | '/gallery'
     | '/placements'
     | '/courses/$slug'
@@ -117,6 +128,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/faq'
+    | '/founder'
     | '/gallery'
     | '/placements'
     | '/courses/$slug'
@@ -128,6 +140,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   FaqRoute: typeof FaqRoute
+  FounderRoute: typeof FounderRoute
   GalleryRoute: typeof GalleryRoute
   PlacementsRoute: typeof PlacementsRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
@@ -162,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/faq'
       fullPath: '/faq'
       preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/founder': {
+      id: '/founder'
+      path: '/founder'
+      fullPath: '/founder'
+      preLoaderRoute: typeof FounderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gallery': {
@@ -200,6 +220,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   FaqRoute: FaqRoute,
+  FounderRoute: FounderRoute,
   GalleryRoute: GalleryRoute,
   PlacementsRoute: PlacementsRoute,
   CoursesSlugRoute: CoursesSlugRoute,
