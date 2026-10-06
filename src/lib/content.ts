@@ -1,19 +1,19 @@
 export const features = [
-  ["Industry-oriented courses", "Courses designed around relevant industry requirements to help you develop practical, career-ready skills."],
-  ["Practical learning", "Hands-on learning, practical exercises, real-world examples and industry-oriented training."],
-  ["Experienced trainers", "Professional guidance, practical knowledge and continuous support throughout your learning journey."],
-  ["Career-focused education", "Improve your technical knowledge, communication skills, confidence and workplace readiness."],
-  ["Placement assistance", "Career guidance and placement assistance to help you explore suitable job opportunities."],
-  ["Professional development", "Build communication, personality, interview skills and professional confidence."],
-  ["Flexible learning", "Learning options designed to suit different student requirements and career goals."],
-  ["Industry exposure", "Selected programs offer practical exposure to help you understand real workplace environments."],
+  ["Globally Recognized Curriculum", "Programs designed in synergy with international benchmarks and Fortune 500 employer standards to ensure global competitiveness."],
+  ["Immersive Practical Labs", "Hands-on mastery with industry-standard software including SAP, Tally Prime, Amadeus, Adobe Creative Suite, and real-time simulations."],
+  ["Distinguished Industry Mentors", "Learn directly from corporate veterans, senior logistics managers, certified accountants, and aviation leaders."],
+  ["Executive Placement Network", "Direct access to campus drives, fast-track corporate interviews, and 100% dedicated placement pathways across India & GCC."],
+  ["Corporate Grooming & Etiquette", "Executive communication training, boardroom etiquette, LinkedIn personal branding, and high-stakes interview mastery."],
+  ["Dual International Certifications", "Earn globally recognized credentials that unlock accelerated career mobility across multinational organizations."],
+  ["Personalized Mentorship Track", "Individual 1-on-1 career counselling and tailored roadmaps engineered around your unique professional ambitions."],
+  ["Live Industry Immersion", "Direct visits and on-site training at international airports, major logistics hubs, and leading design agencies."],
 ] as const;
 
 export const stats = [
-  [14, "+", "Years of excellence"],
-  [20, "K+", "Students trained"],
-  [14, "", "Centres across India"],
-  [97, "+", "Placement partners"],
+  [14, "+", "Years of Excellence"],
+  [20, "K+", "Global Alumni"],
+  [100, "%", "Placement Assurance"],
+  [97, "+", "Corporate Partners"],
 ] as const;
 
 export const coreValues = ["Quality Education", "Practical Learning", "Professional Excellence", "Student Development", "Industry Relevance", "Continuous Improvement", "Career Growth"];

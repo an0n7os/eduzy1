@@ -65,6 +65,44 @@
 
 :root {
   --radius: 1rem;
+  --background: oklch(0.985 0.003 80);
+  --foreground: oklch(0.18 0.015 45);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.015 45);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.015 45);
+  --primary: oklch(0.62 0.23 38);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.94 0.008 50);
+  --secondary-foreground: oklch(0.18 0.015 45);
+  --muted: oklch(0.94 0.006 50);
+  --muted-foreground: oklch(0.48 0.018 45);
+  --accent: oklch(0.72 0.16 65);
+  --accent-foreground: oklch(0.15 0 0);
+  --destructive: oklch(0.6 0.22 27);
+  --destructive-foreground: oklch(0.99 0 0);
+  --border: oklch(0.2 0.01 45 / 12%);
+  --input: oklch(0.2 0.01 45 / 14%);
+  --ring: oklch(0.62 0.23 38);
+  --chart-1: oklch(0.62 0.23 38);
+  --chart-2: oklch(0.72 0.16 65);
+  --chart-3: oklch(0.4 0.1 40);
+  --chart-4: oklch(0.6 0.1 60);
+  --chart-5: oklch(0.3 0.05 40);
+  --sidebar: oklch(0.985 0.003 80);
+  --sidebar-foreground: oklch(0.18 0.015 45);
+  --sidebar-primary: oklch(0.62 0.23 38);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.94 0.008 50);
+  --sidebar-accent-foreground: oklch(0.18 0.015 45);
+  --sidebar-border: oklch(0.2 0.01 45 / 12%);
+  --sidebar-ring: oklch(0.62 0.23 38);
+  --gradient-glow: radial-gradient(60% 60% at 50% 40%, transparent, transparent);
+  --gradient-fade: linear-gradient(180deg, transparent, var(--background));
+  --shadow-glow: 0 20px 60px -20px color-mix(in oklab, var(--primary) 35%, transparent);
+}
+
+.dark {
   --background: oklch(0.14 0.005 40);
   --foreground: oklch(0.96 0.01 70);
   --card: oklch(0.18 0.006 40);
@@ -123,6 +161,23 @@
   color: transparent;
 }
 @utility bg-glow { background: var(--gradient-glow); }
-@utility shadow-glow { box-shadow: var(--shadow-glow); }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @utility animate-marquee { animation: marquee 30s linear infinite; }
+
+@keyframes button-shimmer {
+  0% { transform: translateX(-150%) skewX(-15deg); }
+  50%, 100% { transform: translateX(250%) skewX(-15deg); }
+}
+@utility animate-shimmer { animation: button-shimmer 3.5s cubic-bezier(0.4, 0, 0.2, 1) infinite; }
+
+@keyframes pulse-aura {
+  0%, 100% {
+    opacity: 0.45;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+@utility animate-pulse-aura { animation: pulse-aura 3s ease-in-out infinite; }
