@@ -20,7 +20,7 @@ function Courses() {
   return (
     <>
       <PageHero eyebrow="Programmes" title="Six streams. One goal — your career." sub="Every course blends theory, hands-on practice and placement preparation." />
-      <section className="mx-auto max-w-7xl space-y-32 px-6 pb-32 md:px-12">
+      <section className="mx-auto max-w-7xl space-y-16 px-6 pb-16 md:space-y-20 md:px-12 md:pb-20">
         {courses.map((c, i) => (
           <div key={c.slug} className={`grid items-center gap-12 md:grid-cols-2 ${i % 2 ? "md:[&>*:first-child]:order-2" : ""}`}>
             <Reveal>
